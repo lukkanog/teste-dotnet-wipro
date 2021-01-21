@@ -37,5 +37,16 @@ namespace Locadora.WebApi.Models
         public int IdFilme { get; set; }
         public Filme Filme { get; set; }
 
+        [NotMapped]
+        public bool Finalizado { get; set; }
+
+        public Locacao()
+        {
+            if (!DataRetorno.HasValue)
+                Finalizado = false;
+
+            Finalizado = true;
+        }
+
     }
 }
