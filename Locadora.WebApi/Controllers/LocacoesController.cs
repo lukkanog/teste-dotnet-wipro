@@ -117,5 +117,41 @@ namespace Locadora.WebApi.Controllers
                 });
             }
         }
+
+        [HttpGet("filme/{idFilme}")]
+        public IActionResult ListarPorFilme(int idFilme)
+        {
+            try
+            {
+                List<Locacao> locacoes = locacaoRepository.ListarPorFIlme(idFilme);
+                return Ok(locacoes);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new
+                {
+                    Erro = true,
+                    Mensagem = e.Message
+                });
+            }
+        }
+
+        [HttpGet("cliente/{idCliente}")]
+        public IActionResult ListarPorCliente(int idCliente)
+        {
+            try
+            {
+                List<Locacao> locacoes = locacaoRepository.ListarPorUsuario(idCliente);
+                return Ok(locacoes);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new
+                {
+                    Erro = true,
+                    Mensagem = e.Message
+                });
+            }
+        }
     }
 }
