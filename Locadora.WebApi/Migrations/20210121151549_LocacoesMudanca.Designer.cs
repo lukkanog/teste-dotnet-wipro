@@ -4,14 +4,16 @@ using Locadora.WebApi.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Locadora.WebApi.Migrations
 {
     [DbContext(typeof(LocadoraContext))]
-    partial class LocadoraContextModelSnapshot : ModelSnapshot
+    [Migration("20210121151549_LocacoesMudanca")]
+    partial class LocacoesMudanca
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,7 +78,7 @@ namespace Locadora.WebApi.Migrations
                         .HasColumnName("DataLocacao")
                         .HasColumnType("DATETIME");
 
-                    b.Property<DateTime?>("DataRetorno")
+                    b.Property<DateTime>("DataRetorno")
                         .HasColumnName("DataRetorno")
                         .HasColumnType("DATETIME");
 

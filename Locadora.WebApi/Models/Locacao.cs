@@ -15,6 +15,19 @@ namespace Locadora.WebApi.Models
         public int IdLocacao { get; set; }
 
         [Required]
+        [Column("DataLocacao", TypeName = "DATETIME")]
+        public DateTime DataLocacao { get; set; }
+
+        [Required]
+        [Column("DataEsperada", TypeName = "DATETIME")]
+
+        public DateTime DataEsperada { get; set; }
+
+        [Column("DataRetorno", TypeName = "DATETIME")]
+
+        public DateTime? DataRetorno { get; set; }
+
+        [Required]
         [ForeignKey("Cliente")]
         public int IdCliente { get; set; }
         public Cliente Cliente { get; set; }
@@ -23,5 +36,6 @@ namespace Locadora.WebApi.Models
         [ForeignKey("Filme")]
         public int IdFilme { get; set; }
         public Filme Filme { get; set; }
+
     }
 }
