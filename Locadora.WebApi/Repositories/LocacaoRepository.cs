@@ -1,6 +1,7 @@
 ﻿using Locadora.WebApi.Contexts;
 using Locadora.WebApi.Interfaces;
 using Locadora.WebApi.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,10 @@ namespace Locadora.WebApi.Repositories
         {
             using (LocadoraContext context = new LocadoraContext())
             {
-                Locacao locacaoBuscada = context.Locacoes.Where(x => x.IdFilme == locacao.IdFilme).ToList().LastOrDefault();
+                Locacao locacaoBuscada = context.Locacoes
+                    .Where(x => x.IdFilme == locacao.IdFilme)
+                    .ToList()
+                    .LastOrDefault();
 
                 if (locacaoBuscada != null && locacaoBuscada.DataRetorno == null)
                     throw new Exception("Filme indisponível");
@@ -45,7 +49,10 @@ namespace Locadora.WebApi.Repositories
         {
             using (LocadoraContext context = new LocadoraContext())
             {
-                Locacao locacaoBuscada = context.Locacoes.Find(idLocacao);
+                Locacao locacaoBuscada = context.Locacoes
+                    .Include(x => x.Filme)
+                    .Include(x => x.Cliente)
+                    .FirstOrDefault(x => x.IdLocacao == idLocacao);
 
                 if (locacaoBuscada == null)
                     throw new Exception("Locação não encontrada");
@@ -61,6 +68,9 @@ namespace Locadora.WebApi.Repositories
                 context.Update(locacaoBuscada);
                 context.SaveChanges();
 
+                locacaoBuscada.Filme.Locacoes = null;
+                locacaoBuscada.Cliente.Locacoes = null;
+
                 return locacaoBuscada;
             }
         }
@@ -69,7 +79,17 @@ namespace Locadora.WebApi.Repositories
         {
             using (LocadoraContext context = new LocadoraContext())
             {
-                List<Locacao> locacoes = context.Locacoes.ToList();
+                List<Locacao> locacoes = context.Locacoes
+                    .Include(x => x.Filme)
+                    .Include(x => x.Cliente)
+                    .ToList();
+
+                foreach (var item in locacoes)
+                {
+                    item.Cliente.Locacoes = null;
+                    item.Filme.Locacoes = null;
+                }
+
                 return locacoes;
             }
         }
@@ -78,7 +98,17 @@ namespace Locadora.WebApi.Repositories
         {
             using (LocadoraContext context = new LocadoraContext())
             {
-                List<Locacao> locacoes = context.Locacoes.Where(x => x.IdFilme == idFilme).ToList();
+                List<Locacao> locacoes = context.Locacoes
+                    .Where(x => x.IdFilme == idFilme)
+                    .Include(x => x.Cliente)
+                    .ToList();
+
+
+                foreach (var item in locacoes)
+                {
+                    item.Cliente.Locacoes = null;
+                }
+
                 return locacoes;
             }
         }
@@ -87,7 +117,16 @@ namespace Locadora.WebApi.Repositories
         {
             using (LocadoraContext context = new LocadoraContext())
             {
-                List<Locacao> locacoes = context.Locacoes.Where(x => x.IdCliente == idUsuario).ToList();
+                List<Locacao> locacoes = context.Locacoes
+                    .Where(x => x.IdCliente == idUsuario)
+                    .Include(x => x.Filme)
+                    .ToList();
+
+                foreach (var item in locacoes)
+                {
+                    item.Filme.Locacoes = null;
+                }
+
                 return locacoes;
             }
         }

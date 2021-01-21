@@ -73,5 +73,23 @@ namespace Locadora.WebApi.Controllers
                 });
             }
         }
+
+        [HttpGet]
+        public IActionResult Listar()
+        {
+            try
+            {
+                List<Locacao> locacoes = locacaoRepository.Listar();
+                return Ok(locacoes);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new
+                {
+                    Erro = true,
+                    Mensagem = e.Message
+                });
+            }
+        }
     }
 }
