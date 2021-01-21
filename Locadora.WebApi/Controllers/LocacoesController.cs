@@ -22,6 +22,7 @@ namespace Locadora.WebApi.Controllers
             locacaoRepository = new LocacaoRepository();
         }
 
+
         [HttpPost]
         public IActionResult AlugarFilme(Locacao locacao)
         {
@@ -39,6 +40,8 @@ namespace Locadora.WebApi.Controllers
                 });
             }
         }
+
+
 
         [HttpPut("{idLocacao}")]
         public IActionResult Devolver(int idLocacao)
@@ -61,8 +64,8 @@ namespace Locadora.WebApi.Controllers
                 return Ok(new
                 {
                     Mensagem = mensagemResposta,
-                    FilmeDevolvido = locacaoFinalizada.Filme
-                }); ; ;
+                    Locacao = locacaoFinalizada
+                });
             }
             catch (Exception e)
             {
@@ -81,6 +84,29 @@ namespace Locadora.WebApi.Controllers
             {
                 List<Locacao> locacoes = locacaoRepository.Listar();
                 return Ok(locacoes);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new
+                {
+                    Erro = true,
+                    Mensagem = e.Message
+                });
+            }
+        }
+
+        [HttpGet("{idLocacao}")]
+        public IActionResult BuscarPorId(int idLocacao)
+        {
+            try
+            {
+                Locacao locacao = locacaoRepository.BuscarPorId(idLocacao);
+                
+                if (locacao == null)
+                    return NotFound("Locação não encontrada.");
+
+
+                return Ok(locacao);
             }
             catch (Exception e)
             {

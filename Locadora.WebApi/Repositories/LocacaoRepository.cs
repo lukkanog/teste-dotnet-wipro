@@ -15,7 +15,10 @@ namespace Locadora.WebApi.Repositories
         {
             using (LocadoraContext context = new LocadoraContext())
             {
-                Locacao locacaoBuscada = context.Locacoes.Find(idLocacao);
+                Locacao locacaoBuscada = context.Locacoes
+                     .Include(x => x.Filme)
+                     .Include(x => x.Cliente)
+                     .FirstOrDefault(x => x.IdLocacao == idLocacao);
 
                 if (locacaoBuscada == null)
                     throw new Exception("Locação não encontrada");
