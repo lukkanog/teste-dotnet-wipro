@@ -44,12 +44,11 @@ namespace Locadora.WebApi.Controllers
             }
             catch (Exception e)
             {
-                var response = new {
+                return BadRequest(new
+                {
                     Erro = true,
                     Mensagem = e.Message
-                };
-
-                return BadRequest(response);
+                });
             }
         }
     }
