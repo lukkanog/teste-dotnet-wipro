@@ -25,7 +25,24 @@ namespace Locadora.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            //configurações do formato JSON 
+            services.AddControllers()
+                .AddNewtonsoftJson(options => {
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+            });
+
+            //Adiciona o Swagger
+            services.AddSwaggerGen();
+
+            //CORS (Cross origin resource sharing)
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +52,17 @@ namespace Locadora.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //Utilização do Swagger
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Locadora WEB API");
+            });
+
+            //Utilização do CORS
+            app.UseCors("CorsPolicy");
+
 
             app.UseHttpsRedirection();
 
