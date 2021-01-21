@@ -44,8 +44,8 @@ namespace Locadora.WebApi.Models
         {
             if (!DataRetorno.HasValue)
                 Finalizado = false;
-
-            Finalizado = true;
+            else
+                Finalizado = true;
         }
 
     }
