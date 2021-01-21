@@ -52,13 +52,13 @@ namespace Locadora.WebApi.Controllers
 
                 if (locacaoFinalizada.DiasAtrasado > TimeSpan.Zero)
                 {
-                    mensagemResposta =$"Filme devolvido com atraso de {locacaoFinalizada.DiasAtrasado.Value.Days} dia(s)";
+                    mensagemResposta = $"Filme devolvido com atraso de {locacaoFinalizada.DiasAtrasado.Value.Days} dia(s)";
                 } else
                 {
                     mensagemResposta = "Filme devolvido com sucesso dentro do prazo.";
                 }
 
-                return BadRequest(new
+                return Ok(new
                 {
                     Mensagem = mensagemResposta,
                     FilmeDevolvido = locacaoFinalizada.Filme
