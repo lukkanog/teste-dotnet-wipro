@@ -38,15 +38,10 @@ namespace Locadora.WebApi.Models
         public Filme Filme { get; set; }
 
         [NotMapped]
-        public bool Finalizado { get; set; }
+        public bool? Finalizado { get; set; }
 
-        public Locacao()
-        {
-            if (!DataRetorno.HasValue)
-                Finalizado = false;
-            else
-                Finalizado = true;
-        }
+        [NotMapped]
+        public TimeSpan? DiasAtrasado { get; set; }
 
     }
 }

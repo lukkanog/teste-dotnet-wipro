@@ -27,10 +27,12 @@ namespace Locadora.WebApi.Repositories
         {
             using (LocadoraContext context = new LocadoraContext())
             {
-                Locacao locacaoBuscada = context.Locacoes.FirstOrDefault(x => x.IdFilme == locacao.IdFilme);
-                
-                if (locacaoBuscada != null && !locacaoBuscada.Finalizado)
+                Locacao locacaoBuscada = context.Locacoes.Where(x => x.IdFilme == locacao.IdFilme).ToList().LastOrDefault();
+
+                if (locacaoBuscada != null && locacaoBuscada.DataRetorno == null)
                     throw new Exception("Filme indisponível");
+
+
 
                 locacao.DataLocacao = DateTime.Now;
 
@@ -48,7 +50,13 @@ namespace Locadora.WebApi.Repositories
                 if (locacaoBuscada == null)
                     throw new Exception("Locação não encontrada");
 
+                if (locacaoBuscada.DataRetorno.HasValue)
+                    throw new Exception("Esse filme já foi devolvido por essa pessoa.");
+                
+
                 locacaoBuscada.DataRetorno = DateTime.Now;
+
+                locacaoBuscada.DiasAtrasado = locacaoBuscada.DataRetorno.Value.Date - locacaoBuscada.DataEsperada.Date;
 
                 context.Update(locacaoBuscada);
                 context.SaveChanges();
