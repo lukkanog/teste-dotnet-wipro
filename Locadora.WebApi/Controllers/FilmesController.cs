@@ -38,5 +38,24 @@ namespace Locadora.WebApi.Controllers
                 });
             }
         }
+
+
+        [HttpPost]
+        public IActionResult CadastrarFilme(Filme filme)
+        {
+            try
+            {
+                filmeRepository.CadastrarFilme(filme);
+                return Ok("Filme cadastrado com sucesso");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new
+                {
+                    Erro = true,
+                    Mensagem = e.Message
+                });
+            }
+        }
     }
 }
