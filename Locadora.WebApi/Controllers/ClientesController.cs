@@ -29,18 +29,21 @@ namespace Locadora.WebApi.Controllers
             {
                 if (clienteRepository.BuscarPorEmail(cliente.Email) != null)
                 {
-                    var response = new
+                    // Se usuário já existe, retornar mensagem de erro.
+                    return BadRequest(new
                     {
                         Erro = true,
                         Mensagem = "Usuário já existe."
-                    };
-
-                    return BadRequest(response);
+                    });
                 }
-                    
 
                 clienteRepository.CadastrarCliente(cliente);
-                return Ok("Cliente cadastrado com sucesso");
+
+                return Ok(new
+                {
+                    Mensagem = "Cliente cadastrado com sucesso.",
+                    Cliente = cliente
+                });
             }
             catch (Exception e)
             {

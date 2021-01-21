@@ -15,7 +15,7 @@ namespace Locadora.WebApi.Interfaces
         public void CadastrarLocacao(Locacao locacao);
 
         /// <summary>
-        /// Finaliza uma locação já iniciada
+        /// Atualiza o registro no banco de dados, finalizando a locação.
         /// </summary>
         /// <param name="idLocacao">Id da locação a ser finalizada</param>
         public Locacao FinalizarLocacao(int idLocacao);

@@ -20,6 +20,7 @@ namespace Locadora.WebApi.Repositories
                      .Include(x => x.Cliente)
                      .FirstOrDefault(x => x.IdLocacao == idLocacao);
 
+                // Verifica se locação não existe
                 if (locacaoBuscada == null)
                     throw new Exception("Locação não encontrada");
 
@@ -36,6 +37,7 @@ namespace Locadora.WebApi.Repositories
                     .ToList()
                     .LastOrDefault();
 
+                // Verifica se o filme está atualmente alugado (indisponível)
                 if (locacaoBuscada != null && locacaoBuscada.DataRetorno == null)
                     throw new Exception("Filme indisponível");
 
@@ -57,20 +59,25 @@ namespace Locadora.WebApi.Repositories
                     .Include(x => x.Cliente)
                     .FirstOrDefault(x => x.IdLocacao == idLocacao);
 
+
+                // Verifica se a locação não existe
                 if (locacaoBuscada == null)
                     throw new Exception("Locação não encontrada");
 
+                // Verifica se a locação já foi finalizada
                 if (locacaoBuscada.DataRetorno.HasValue)
                     throw new Exception("Esse filme já foi devolvido por essa pessoa.");
                 
 
                 locacaoBuscada.DataRetorno = DateTime.Now;
 
+                // Calcula diferença de dias entre a data esperada e a data de retorno.
                 locacaoBuscada.DiasAtrasado = locacaoBuscada.DataRetorno.Value.Date - locacaoBuscada.DataEsperada.Date;
 
                 context.Update(locacaoBuscada);
                 context.SaveChanges();
 
+                // Para evitar loopings no retorno, define as locações como nulas.
                 locacaoBuscada.Filme.Locacoes = null;
                 locacaoBuscada.Cliente.Locacoes = null;
 
@@ -87,6 +94,7 @@ namespace Locadora.WebApi.Repositories
                     .Include(x => x.Cliente)
                     .ToList();
 
+                // Para evitar loopings no retorno, define as locações de cada filme e cliente como nulas.
                 foreach (var item in locacoes)
                 {
                     item.Cliente.Locacoes = null;
@@ -106,7 +114,7 @@ namespace Locadora.WebApi.Repositories
                     .Include(x => x.Cliente)
                     .ToList();
 
-
+                // Para evitar loopings no retorno, define as locações de cada cliente como nulas.
                 foreach (var item in locacoes)
                 {
                     item.Cliente.Locacoes = null;
@@ -125,6 +133,7 @@ namespace Locadora.WebApi.Repositories
                     .Include(x => x.Filme)
                     .ToList();
 
+                // Para evitar loopings no retorno, define as locações de cada filme como nulas.
                 foreach (var item in locacoes)
                 {
                     item.Filme.Locacoes = null;

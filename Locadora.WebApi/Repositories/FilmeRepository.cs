@@ -23,8 +23,8 @@ namespace Locadora.WebApi.Repositories
         {
             using (LocadoraContext context = new LocadoraContext())
             {
-                List<Filme> lista = context.Filmes.ToList();
-                return lista;
+                List<Filme> filmes = context.Filmes.ToList();
+                return filmes;
             }
         }
     }

@@ -37,9 +37,7 @@ namespace Locadora.WebApi.Models
         public int IdFilme { get; set; }
         public Filme Filme { get; set; }
 
-        [NotMapped]
-        public bool? Finalizado { get; set; }
-
+        // Propriedade não salva no banco de dados
         [NotMapped]
         public TimeSpan? DiasAtrasado { get; set; }
 

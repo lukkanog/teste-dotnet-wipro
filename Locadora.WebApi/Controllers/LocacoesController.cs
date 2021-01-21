@@ -29,7 +29,12 @@ namespace Locadora.WebApi.Controllers
             try
             {
                 locacaoRepository.CadastrarLocacao(locacao);
-                return Ok(locacao);
+
+                return Ok(new
+                {
+                    Mensagem = "Cliente cadastrado com sucesso.",
+                    Locacao = locacao
+                });
             }
             catch (Exception e)
             {
@@ -48,11 +53,13 @@ namespace Locadora.WebApi.Controllers
         {
             try
             {
+                // Finaliza a locação
                 Locacao locacaoFinalizada = locacaoRepository.FinalizarLocacao(idLocacao);
 
+                // Mensagem que será retornada na resposta da requisição.
                 string mensagemResposta;
 
-
+                // Verifica se houve atraso na entrega
                 if (locacaoFinalizada.DiasAtrasado > TimeSpan.Zero)
                 {
                     mensagemResposta = $"Filme devolvido com atraso de {locacaoFinalizada.DiasAtrasado.Value.Days} dia(s)";
@@ -102,6 +109,7 @@ namespace Locadora.WebApi.Controllers
             {
                 Locacao locacao = locacaoRepository.BuscarPorId(idLocacao);
                 
+                //Verifica se locação não existe
                 if (locacao == null)
                     return NotFound("Locação não encontrada.");
 

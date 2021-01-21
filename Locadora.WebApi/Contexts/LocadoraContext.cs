@@ -17,12 +17,14 @@ namespace Locadora.WebApi.Contexts
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
+            {
                 optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=db_Locadora;Integrated Security=true;");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //Faz o email ser único
+            //Faz o usuário ser único através de seu email
             builder.Entity<Cliente>(entity =>
             {
                 entity.HasIndex(e => e.Email).IsUnique();
