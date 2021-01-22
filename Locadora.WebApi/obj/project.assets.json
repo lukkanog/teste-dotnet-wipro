@@ -7444,11 +7444,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\dev\\teste-dotnet-wipro\\Locadora.WebApi\\Locadora.WebApi.csproj",
+      "projectUniqueName": "D:\\dev\\TesteWipro\\teste-dotnet-wipro\\Locadora.WebApi\\Locadora.WebApi.csproj",
       "projectName": "Locadora.WebApi",
-      "projectPath": "D:\\dev\\teste-dotnet-wipro\\Locadora.WebApi\\Locadora.WebApi.csproj",
+      "projectPath": "D:\\dev\\TesteWipro\\teste-dotnet-wipro\\Locadora.WebApi\\Locadora.WebApi.csproj",
       "packagesPath": "C:\\Users\\Pichau\\.nuget\\packages\\",
-      "outputPath": "D:\\dev\\teste-dotnet-wipro\\Locadora.WebApi\\obj\\",
+      "outputPath": "D:\\dev\\TesteWipro\\teste-dotnet-wipro\\Locadora.WebApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
