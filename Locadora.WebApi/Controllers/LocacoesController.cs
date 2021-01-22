@@ -32,7 +32,7 @@ namespace Locadora.WebApi.Controllers
 
                 return Ok(new
                 {
-                    Mensagem = "Cliente cadastrado com sucesso.",
+                    Mensagem = "Filme alugado com sucesso.",
                     Locacao = locacao
                 });
             }
@@ -65,6 +65,9 @@ namespace Locadora.WebApi.Controllers
                     mensagemResposta = $"Filme devolvido com atraso de {locacaoFinalizada.DiasAtrasado.Value.Days} dia(s)";
                 } else
                 {
+
+                    // se não houver atraso, esconder a diferença de dias da resposta
+                    locacaoFinalizada.DiasAtrasado = null;
                     mensagemResposta = "Filme devolvido com sucesso dentro do prazo.";
                 }
 

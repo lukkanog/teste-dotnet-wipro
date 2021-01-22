@@ -46,7 +46,11 @@ namespace Locadora.WebApi.Controllers
             try
             {
                 filmeRepository.CadastrarFilme(filme);
-                return Ok("Filme cadastrado com sucesso");
+                return Ok(new
+                {
+                    Mensagem = "Filme cadastrado com sucesso.",
+                    Filme = filme
+                });
             }
             catch (Exception e)
             {
