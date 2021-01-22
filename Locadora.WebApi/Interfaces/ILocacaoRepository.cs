@@ -12,7 +12,7 @@ namespace Locadora.WebApi.Interfaces
         /// Cadastra uma nova locação no banco de dados
         /// </summary>
         /// <param name="locacao">Locacao a ser cadastrada.</param>
-        public void CadastrarLocacao(Locacao locacao);
+        public Locacao CadastrarLocacao(Locacao locacao);
 
         /// <summary>
         /// Atualiza o registro no banco de dados, finalizando a locação.
