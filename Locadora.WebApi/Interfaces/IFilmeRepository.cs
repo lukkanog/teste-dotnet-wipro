@@ -12,7 +12,7 @@ namespace Locadora.WebApi.Interfaces
         /// Cadastra um novo filme no banco de dados.
         /// </summary>
         /// <param name="filme">Filme a ser cadastrado no banco de dados.</param>
-        public void CadastrarFilme(Filme filme);
+        public Filme CadastrarFilme(Filme filme);
 
         /// <summary>
         /// Lista todos os filmes presentes no banco de dados.

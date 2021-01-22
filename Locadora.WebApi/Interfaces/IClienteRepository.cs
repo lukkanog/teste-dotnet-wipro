@@ -12,7 +12,7 @@ namespace Locadora.WebApi.Interfaces
         /// Cadastra um novo cliente e o salva no banco de dados.
         /// </summary>
         /// <param name="cliente">Cliente a ser cadastrado no banco de dados</param>
-        public void CadastrarCliente(Cliente cliente);
+        public Cliente CadastrarCliente(Cliente cliente);
 
         /// <summary>
         /// Busca um cliente no banco de dados através do endereço de email

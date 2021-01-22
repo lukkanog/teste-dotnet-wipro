@@ -37,12 +37,12 @@ namespace Locadora.WebApi.Controllers
                     });
                 }
 
-                clienteRepository.CadastrarCliente(cliente);
+                Cliente clienteCadastrado = clienteRepository.CadastrarCliente(cliente);
 
                 return Ok(new
                 {
                     Mensagem = "Cliente cadastrado com sucesso.",
-                    Cliente = cliente
+                    Cliente = clienteCadastrado
                 });
             }
             catch (Exception e)

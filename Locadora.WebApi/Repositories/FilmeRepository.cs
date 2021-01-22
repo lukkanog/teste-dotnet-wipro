@@ -10,12 +10,13 @@ namespace Locadora.WebApi.Repositories
 {
     public class FilmeRepository : IFilmeRepository
     {
-        public void CadastrarFilme(Filme filme)
+        public Filme CadastrarFilme(Filme filme)
         {
             using (LocadoraContext context = new LocadoraContext())
             {
                 context.Add(filme);
                 context.SaveChanges();
+                return filme;
             }
         }
 

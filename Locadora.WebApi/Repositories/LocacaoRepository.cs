@@ -28,7 +28,7 @@ namespace Locadora.WebApi.Repositories
             }
         }
 
-        public void CadastrarLocacao(Locacao locacao)
+        public Locacao CadastrarLocacao(Locacao locacao)
         {
             using (LocadoraContext context = new LocadoraContext())
             {
@@ -47,6 +47,7 @@ namespace Locadora.WebApi.Repositories
 
                 context.Locacoes.Add(locacao);
                 context.SaveChanges();
+                return locacao;
             }
         }
 

@@ -19,12 +19,13 @@ namespace Locadora.WebApi.Repositories
             }
         }
 
-        public void CadastrarCliente(Cliente cliente)
+        public Cliente CadastrarCliente(Cliente cliente)
         {
             using (LocadoraContext context = new LocadoraContext())
             {
                 context.Clientes.Add(cliente);
                 context.SaveChanges();
+                return cliente;
             }
         }
     }
